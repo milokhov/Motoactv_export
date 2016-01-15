@@ -17,17 +17,6 @@ package com.sdsoft.motoactv_export;
  * limitations under the License.
  */
 
-import java.sql.Date;
-import java.util.ArrayList;
-
-import org.scribe.builder.ServiceBuilder;
-import org.scribe.model.OAuthRequest;
-import org.scribe.model.Response;
-import org.scribe.model.Token;
-import org.scribe.model.Verb;
-import org.scribe.model.Verifier;
-import org.scribe.oauth.OAuthService;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -35,7 +24,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -46,6 +34,17 @@ import android.webkit.WebViewClient;
 import com.google.gson.Gson;
 import com.sdsoft.motoactv_export.DataUtil.LapDetails;
 import com.sdsoft.motoactv_export.DataUtil.WorkoutActivityAGPX;
+
+import org.scribe.builder.ServiceBuilder;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Token;
+import org.scribe.model.Verb;
+import org.scribe.model.Verifier;
+import org.scribe.oauth.OAuthService;
+
+import java.sql.Date;
+import java.util.ArrayList;
 
 public class RunKeeperUpdate {
 	

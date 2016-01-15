@@ -17,11 +17,6 @@ package com.sdsoft.motoactv_export;
  * limitations under the License.
  */
 
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -30,16 +25,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
 
 
 public class WebActivity extends Activity {
@@ -92,6 +87,10 @@ public class WebActivity extends Activity {
   		if(isOnline(true))
   			getDropboxAuth();
   		break;
+	case STRAVA:
+		if(isOnline(true))
+			getStravaAuth();
+		break;
   	}
   	
   	// Close form if not online.
@@ -115,7 +114,15 @@ public class WebActivity extends Activity {
     	return true;
     	
     }
-    
+
+	private boolean getStravaAuth()
+	{
+		StravaUpdate db = new StravaUpdate(null, shared_pref);
+		db.getAuthToken((WebView) findViewById(R.id.webview),this);
+
+		return true;
+	}
+
     private boolean getDropboxAuth()
     {
 		DropboxUpdate db = new DropboxUpdate(null,shared_pref);	

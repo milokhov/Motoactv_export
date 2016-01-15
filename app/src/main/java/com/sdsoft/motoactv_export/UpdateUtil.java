@@ -24,7 +24,7 @@ import android.net.wifi.WifiManager;
 import android.util.Log;
 
 public class UpdateUtil {
-	public enum AuthType { RUNKEEPER, DROPBOX, GOOGLEDRIVE }
+	public enum AuthType { RUNKEEPER, DROPBOX, GOOGLEDRIVE, STRAVA }
 	private static String TAG = "sd_motoactv_export";
 	
 	public static boolean EnableWifi_andWait(Context context)

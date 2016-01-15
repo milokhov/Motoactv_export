@@ -17,9 +17,6 @@ package com.sdsoft.motoactv_export;
  * limitations under the License.
  */
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -28,6 +25,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,13 +41,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import android.util.Log;
-import com.sdsoft.motoactv_export.R;
 
 public class MainActivity extends Activity implements OnSharedPreferenceChangeListener{
 
@@ -128,7 +128,21 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 					//StartMain();
 	   		 	}
 			}
-		
+
+            // Dropbox Update
+            if( shared_pref.getBoolean("pref_use_strava", false) )
+            {
+                StravaUpdate sv = new StravaUpdate(DU,shared_pref);//,getBaseContext()
+                boolean ret=sv.UpdateAll(needs_updating);
+
+                if (! ret)
+                {
+                    Log.d(TAG,"SV Service Need New Token");
+                    //StartMain();
+                }
+            }
+
+
 		}
    }
 
@@ -247,8 +261,10 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 				WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
 				if( wifiManager.getWifiState() !=3  )
 				{
-					if( shared_pref.getBoolean("pref_use_runkeeper", false) || shared_pref.getBoolean("pref_use_dropbox", false) ||
-								shared_pref.getBoolean("pref_use_googledrive", false) )
+					if( shared_pref.getBoolean("pref_use_runkeeper", false) ||
+						shared_pref.getBoolean("pref_use_dropbox", false) ||
+						shared_pref.getBoolean("pref_use_googledrive", false) ||
+						shared_pref.getBoolean("pref_use_strava", false)	)
 					{
 						Log.d(TAG,"Prompt Wifi");
 						AlertDialog dl = new AlertDialog.Builder(this)
@@ -316,17 +332,15 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 		   int id = 0;
 
 		   // Dont do on emulator
-		   //if(! Build.FINGERPRINT.startsWith("generic") )
-		  // {
+//		   if(! Build.FINGERPRINT.startsWith("generic") )
+//		   {
 		   String[] sID = spinner1.getSelectedItem().toString().split(" ");
 		   id = Integer.parseInt( sID[0]);
-		   
-		  // }
+//		   }
 			  
 		   
 		   DataUtil DU = new DataUtil(getContentResolver());
-		   
-	 		 
+
 		   Log.d(TAG, "Manual Export");
 		   
 		   boolean reta = shared_pref.getBoolean("pref_local_TCX", true);
@@ -391,7 +405,23 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 		    			getBaseContext().startActivity(dialogIntent);
 		    		 }
 	    		}
+               // Strava
+               if( shared_pref.getBoolean("pref_use_strava", false) && isOnline(true))
+               {
+                   Log.d(TAG,"Posting to Strava");
+                   StravaUpdate gd = new StravaUpdate(DU,shared_pref);//,getBaseContext()
+                   boolean ret=gd.doPost(id);
 
+                   if ( false )
+                   {
+                       Log.d(TAG,"SV Service Need New Token");
+                       Intent dialogIntent = new Intent(getBaseContext(), WebActivity.class);
+                       UpdateUtil.AuthType send = UpdateUtil.AuthType.STRAVA;
+                       dialogIntent.putExtra("auth_type", send.ordinal());
+                       dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                       getBaseContext().startActivity(dialogIntent);
+                   }
+               }
 		   
 		   mHandler.postDelayed(mUpdateTimeTask,500);
 		   }
@@ -487,7 +517,20 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
     			context.startActivity(dialogIntent);
     		}
     	}
-    	
+		else if(key.equals("pref_use_strava"))
+		{
+
+			// ReAuth
+			if(sharedPreferences.getBoolean(key, false))
+			{
+				Intent dialogIntent = new Intent(context, WebActivity.class);
+				UpdateUtil.AuthType send = UpdateUtil.AuthType.STRAVA;
+				dialogIntent.putExtra("auth_type", send.ordinal());
+				context.startActivity(dialogIntent);
+			}
+
+		}
+
     	
     	
         

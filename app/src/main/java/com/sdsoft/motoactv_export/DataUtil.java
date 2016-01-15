@@ -17,16 +17,17 @@ package com.sdsoft.motoactv_export;
  * limitations under the License.
  */
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 public class DataUtil {
 

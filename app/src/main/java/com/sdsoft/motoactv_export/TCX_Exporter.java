@@ -18,14 +18,16 @@ package com.sdsoft.motoactv_export;
  */
 
 import android.util.Log;
+
+import com.sdsoft.motoactv_export.DataUtil.LapDetails;
+import com.sdsoft.motoactv_export.DataUtil.WorkoutActivityAGPX;
+
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
-import com.sdsoft.motoactv_export.DataUtil.LapDetails;
-import com.sdsoft.motoactv_export.DataUtil.WorkoutActivityAGPX;
 
 
 public class TCX_Exporter {
