@@ -129,6 +129,18 @@ public class SYNC_Service extends Service {
 			    			StartMain();
 			    		 }
 		    		}
+					 // Strava Update
+					 if( shared_pref.getBoolean("pref_use_strava", false) )
+					 {
+						 StravaUpdate sv = new StravaUpdate(DU,shared_pref);//,getBaseContext()
+						 boolean ret=sv.UpdateAll(needs_updating);
+
+						 if (! ret)
+						 {
+							 Log.d(TAG,"SV Service Need New Token");
+							 StartMain();
+						 }
+					 }
 		    	 }
 	    	 }
 	    	 catch( Exception e)

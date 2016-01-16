@@ -147,7 +147,7 @@ public class StravaUpdate {
         httpPost.setHeader("enctype", "multipart/form-data");
 
 
-        File f = new File(fileName);
+        File f = new File("/sdcard/" + fileName);
         FileBody fb = new FileBody(f);
 
         String tcx = "tcx";
