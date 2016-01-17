@@ -129,7 +129,7 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
 	   		 	}
 			}
 
-            // Dropbox Update
+            // Strava Update
             if( shared_pref.getBoolean("pref_use_strava", false) )
             {
                 StravaUpdate sv = new StravaUpdate(DU,shared_pref);//,getBaseContext()

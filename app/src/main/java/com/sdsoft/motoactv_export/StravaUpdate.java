@@ -120,6 +120,7 @@ public class StravaUpdate {
         try {
             response = httpClient.execute(httpPost);
             HttpEntity respEntity = response.getEntity();
+            int retCode = response.getStatusLine().getStatusCode();
 
             if (respEntity != null) {
                 // EntityUtils to get the response content
@@ -135,7 +136,7 @@ public class StravaUpdate {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return "";
+        return null;
     }
 
 
@@ -155,17 +156,22 @@ public class StravaUpdate {
 
         HttpEntity entity = MultipartEntityBuilder.create()
                 .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
-//                .setBoundary(boundary)
                 .addPart("file", fb)
                 .addPart("data_type", sb)
                 .build();
 
         httpPost.setEntity(entity);
+        int retCode=0;
 
         HttpResponse response;
         try {
             response = httpClient.execute(httpPost);
             HttpEntity respEntity = response.getEntity();
+            retCode = response.getStatusLine().getStatusCode();
+
+// 401 unauthorised
+// 400 response.getStatusLine().getReasonPhrase() "Bad Request" - something wrong with the data
+// 201 uploaded. probably
 
             if (respEntity != null) {
                 // EntityUtils to get the response content
@@ -176,7 +182,7 @@ public class StravaUpdate {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return 0;
+        return retCode;
     }
 
     public boolean doPost(int id) {
@@ -206,6 +212,7 @@ public class StravaUpdate {
 
                 switch(rcode) {
                     case 200:
+                    case 201:
                         //good
                         Log.d(TAG, "Activty posted to strava:" + rcode);
                         break;
@@ -248,7 +255,6 @@ public class StravaUpdate {
 
     public Token getToken()
     {
-
         String sToken = this.settings.getString("db_access_token", "");
         String sSecret = this.settings.getString("db_access_secret","");
         Token accessToken =null;
@@ -257,8 +263,6 @@ public class StravaUpdate {
             accessToken =new Token(sToken,sSecret);
 
         return accessToken;
-
-
     }
     public void ClearToken()
     {
@@ -325,7 +329,6 @@ public class StravaUpdate {
                         Log.d(TAG, "getting token");
                         try {
                             String code = uri.getQueryParameter("code");
-
                             String secret = getToken(code);
 
                             ssToken = secret;
@@ -346,12 +349,6 @@ public class StravaUpdate {
                         ((Activity) cx).finish();
                     }
                 }
-
-                @Override
-                public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    //check for our custom callback protocol otherwise use default behavior
-                    return super.shouldOverrideUrlLoading(view, url);
-                }
             });
 
             //send user to authorization page if needed
@@ -361,7 +358,5 @@ public class StravaUpdate {
         {
             Log.d(TAG,"Failed Retreiving Token. Error:" + e.getMessage());
         }
-
-
     }
 }
