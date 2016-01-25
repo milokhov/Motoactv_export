@@ -192,7 +192,6 @@ public class TCX_Exporter {
 
   public void writeTrackPoint(WorkoutActivityAGPX wagpx) {
 	  //
-	  
     if (printWriter != null  )
     {
       printWriter.println("<Trackpoint>");

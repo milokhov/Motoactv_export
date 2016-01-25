@@ -42,7 +42,7 @@ public class DataUtil {
 	
 	private static String TAG = "sd_motoactv_export";
 	private static int buildMajor = 1;
-	private static int buildMinor = 7;
+	private static int buildMinor = 13;
 
 	private ContentResolver CR;
 	
@@ -263,8 +263,11 @@ public class DataUtil {
             // Loop through data
             long curTime =0;
             long lapStart = Activity_Start_Time;
-            while(curCSV.moveToNext())
 
+			long prevTime = 0;
+			int prevStep = 0;
+
+            while(curCSV.moveToNext())
             {
             	WorkoutActivityAGPX wagpx = getWorkoutActivityAGPX(curCSV);
             	
@@ -301,16 +304,33 @@ public class DataUtil {
                     
             	}
             	LapSteps = wagpx.steps;
-            	
-            	//Write Detail      
-            	Log( "Lat:  " + "" + wagpx.latitude);
-            	Log( "Time:  " +wagpx.time_of_day);
+
+				// Calculate our cadence if we haven't got one set.
+				// Cadence only populated for non-gps workouts.
+				if (wagpx.steps > 0 && wagpx.cadence == 0 ) {
+
+					long timeDelta = wagpx.time_of_day - prevTime;
+
+					if (timeDelta > 15000) //smooth over 15 seconds
+					{
+						int stepDelta = wagpx.steps - prevStep;
+
+						if (timeDelta > 0 && stepDelta > 0) {
+							long steps = 60000 * stepDelta / timeDelta;
+							wagpx.cadence = steps / 2; // Steps is left and right legs.
+
+							prevStep = wagpx.steps;
+							prevTime = wagpx.time_of_day;
+						}
+					}
+				}
+
+				//Write Detail
+            	Log("Lat:  " + "" + wagpx.latitude);
+				Log("Time:  " + wagpx.time_of_day);
             
             	tcxWrite.writeTrackPoint(wagpx);
-            
-                
-
-            }
+			}
          // Close Last Lap
     		tcxWrite.writeEndTrack();
     		tcxWrite.writeEndLap(LapSteps-LastLapSteps);

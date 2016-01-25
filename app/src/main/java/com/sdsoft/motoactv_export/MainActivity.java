@@ -51,7 +51,7 @@ public class MainActivity extends Activity implements OnSharedPreferenceChangeLi
    private static String TAG = "sd_motoactv_export";
    private Spinner spinner1;
    private static int buildMajor = 1;
-   private static int buildMinor = 12;
+   private static int buildMinor = 13;
    private boolean bLaunchingSettings = false;
 
    private SharedPreferences shared_pref = null;
