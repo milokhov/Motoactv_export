@@ -1,4 +1,4 @@
-package com.sdsoft.motoactv_export;
+package com.difo.motoactv_export;
 
 /*
  * SDSOFT Motoactv Exporter 
@@ -32,8 +32,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.google.gson.Gson;
-import com.sdsoft.motoactv_export.DataUtil.LapDetails;
-import com.sdsoft.motoactv_export.DataUtil.WorkoutActivityAGPX;
+import com.difo.motoactv_export.DataUtil.LapDetails;
+import com.difo.motoactv_export.DataUtil.WorkoutActivityAGPX;
 
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.model.OAuthRequest;
@@ -210,7 +210,7 @@ public class RunKeeperUpdate {
 	
 	public RunKeeperObjects.FitnessActivity getActivities(int id )
 	{
-		com.sdsoft.motoactv_export.RunKeeperObjects.FitnessActivity fitnessActivity = new RunKeeperObjects.FitnessActivity();
+		com.difo.motoactv_export.RunKeeperObjects.FitnessActivity fitnessActivity = new RunKeeperObjects.FitnessActivity();
 		ArrayList<RunKeeperObjects.path> paths = new ArrayList<RunKeeperObjects.path>();
 		ArrayList<RunKeeperObjects.heartRate> heartRates = new ArrayList<RunKeeperObjects.heartRate>();
 

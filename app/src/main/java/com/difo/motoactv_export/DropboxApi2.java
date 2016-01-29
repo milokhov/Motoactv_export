@@ -1,4 +1,4 @@
-package com.sdsoft.motoactv_export;
+package com.difo.motoactv_export;
 
 
 import org.scribe.builder.api.DefaultApi10a;

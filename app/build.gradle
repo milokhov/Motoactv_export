@@ -3,7 +3,7 @@ android {
     compileSdkVersion 10
     buildToolsVersion "23.0.2"
     defaultConfig {
-        applicationId "com.sdsoft.motoactv_export"
+        applicationId "com.difo.motoactv_export"
         minSdkVersion 10
         targetSdkVersion 10
     }
@@ -11,7 +11,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-            signingConfig signingConfigs.config
+            //signingConfig signingConfigs.config
         }
     }
     productFlavors {

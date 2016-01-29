@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sdsoft.motoactv_export"
+    package="com.difo.motoactv_export"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -16,9 +16,10 @@
     <application>
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        >
+        >
+
         <activity
-            android:name="com.sdsoft.motoactv_export.MainActivity"
+            android:name="com.difo.motoactv_export.MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,29 +31,29 @@
             android:name="SettingsActivity"
             android:label="@string/title_settings" />
 
-        <receiver android:name="com.sdsoft.motoactv_export.WorkoutComplete" >
+        <receiver android:name="com.difo.motoactv_export.WorkoutComplete" >
             <intent-filter>
                 <action android:name="com.motorola.android.intent.action.WORKOUT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.sdsoft.motoactv_export.ConnectivityReceiver" >
+        <receiver android:name="com.difo.motoactv_export.ConnectivityReceiver" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
         <service
-            android:name="com.sdsoft.motoactv_export.SYNC_Service"
+            android:name="com.difo.motoactv_export.SYNC_Service"
             android:icon="@drawable/ic_launcher"
             android:label="MOTOACTV_EXPORT" >
         </service>
 
         <activity
-            android:name="com.sdsoft.motoactv_export.WebActivity"
+            android:name="com.difo.motoactv_export.WebActivity"
             android:label="@string/title_activity_web" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.sdsoft.motoactv_export.MainActivity" />
+                android:value="com.difo.motoactv_export.MainActivity" />
         </activity>
     </application>
 

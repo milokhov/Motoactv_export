@@ -1,4 +1,4 @@
-package com.sdsoft.motoactv_export;
+package com.difo.motoactv_export;
 
 /*
  * SDSOFT Motoactv Exporter 
@@ -19,8 +19,8 @@ package com.sdsoft.motoactv_export;
 
 import android.util.Log;
 
-import com.sdsoft.motoactv_export.DataUtil.LapDetails;
-import com.sdsoft.motoactv_export.DataUtil.WorkoutActivityAGPX;
+import com.difo.motoactv_export.DataUtil.LapDetails;
+import com.difo.motoactv_export.DataUtil.WorkoutActivityAGPX;
 
 import java.io.PrintWriter;
 import java.io.Writer;

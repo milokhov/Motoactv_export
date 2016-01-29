@@ -1,4 +1,4 @@
-package com.sdsoft.motoactv_export;
+package com.difo.motoactv_export;
 
 /*
  * SDSOFT Motoactv Exporter 
@@ -17,12 +17,22 @@ package com.sdsoft.motoactv_export;
  * limitations under the License.
  */
 
-public class WorkoutActivity {
+import android.os.Bundle;
+import android.preference.PreferenceActivity;
 
-	public int id;
-	public long Activity_Start_Time;
-	public long Activity_End_Time;
-	public String Sport_Type;
-	public int Activity_Type ;
-	
+
+public class SettingsActivity extends PreferenceActivity {
+	private String TAG = "sd_motoactv_export";
+
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+    	setTheme(R.style.AppTheme);
+    	super.onCreate(savedInstanceState);
+        
+        addPreferencesFromResource(R.xml.preferences);
+
+    }
+   
+
 }
