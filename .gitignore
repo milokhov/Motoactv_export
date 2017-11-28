@@ -1,4 +1,4 @@
-#################
+﻿#################
 ## Eclipse
 #################
 
@@ -15,9 +15,12 @@ local.properties
 .classpath
 .settings/
 .loadpath
+.idea
+.gradle
+gen
 
 # API Keys
-src/com/sdsoft/motoactv_export/ApiKeys.java
+app/src/main/java/com/sdsoft/motoactv_export/ApiKeys.java
 
 # jar files
 *.jar
